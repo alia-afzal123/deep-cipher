@@ -132,7 +132,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
               </AnimatePresence>
             </div>
 
-            <NavLink name="Team" href="#team">Team</NavLink>
+            <NavLink name="Projects" href="#projects">Projects</NavLink>
             <NavLink name="Roadmap" href="#roadmap">Roadmap</NavLink>
             <NavLink name="Contact" href="#contact">Contact</NavLink>
           </div>
@@ -171,16 +171,16 @@ export default function Navbar({ darkMode, setDarkMode }) {
             className="lg:hidden bg-[#070B12]/98 backdrop-blur-xl border-t border-white/[0.06] overflow-hidden"
           >
             <div className="flex flex-col gap-1 px-6 py-6 text-gray-300 text-sm">
-              <a href="#home" onClick={() => setMenuOpen(false)} className="py-3 border-b border-white/[0.06] hover:text-green transition-colors">Home</a>
-              <a href="#about" onClick={() => setMenuOpen(false)} className="py-3 border-b border-white/[0.06] hover:text-green transition-colors">About</a>
-              <a href="#services" onClick={() => setMenuOpen(false)} className="py-3 border-b border-white/[0.06] hover:text-green transition-colors">Services</a>
-              <a href="#team" onClick={() => setMenuOpen(false)} className="py-3 border-b border-white/[0.06] hover:text-green transition-colors">Team</a>
-              <a href="#roadmap" onClick={() => setMenuOpen(false)} className="py-3 border-b border-white/[0.06] hover:text-green transition-colors">Roadmap</a>
-              <a href="#contact" onClick={() => setMenuOpen(false)} className="py-3 hover:text-green transition-colors">Contact</a>
-              <a href="#contact" onClick={() => setMenuOpen(false)} className="mt-4 px-5 py-3.5 text-center rounded-full bg-gradient-to-r from-blue to-green text-navy font-semibold text-[14px]">
-                Start a Project
-              </a>
-            </div>
+  <a onClick={() => { setMenuOpen(false); setTimeout(() => document.getElementById("home")?.scrollIntoView({ behavior: "smooth" }), 300); }} className="cursor-pointer py-3 border-b border-white/[0.06] hover:text-green transition-colors">Home</a>
+  <a onClick={() => { setMenuOpen(false); setTimeout(() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" }), 300); }} className="cursor-pointer py-3 border-b border-white/[0.06] hover:text-green transition-colors">About</a>
+  <a onClick={() => { setMenuOpen(false); setTimeout(() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" }), 300); }} className="cursor-pointer py-3 border-b border-white/[0.06] hover:text-green transition-colors">Services</a>
+  <a onClick={() => { setMenuOpen(false); setTimeout(() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" }), 300); }} className="cursor-pointer py-3 border-b border-white/[0.06] hover:text-green transition-colors">Projects</a>
+  <a onClick={() => { setMenuOpen(false); setTimeout(() => document.getElementById("roadmap")?.scrollIntoView({ behavior: "smooth" }), 300); }} className="cursor-pointer py-3 border-b border-white/[0.06] hover:text-green transition-colors">Roadmap</a>
+  <a onClick={() => { setMenuOpen(false); setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 300); }} className="cursor-pointer py-3 hover:text-green transition-colors">Contact</a>
+  <a onClick={() => { setMenuOpen(false); setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 300); }} className="cursor-pointer mt-4 px-5 py-3.5 text-center rounded-full bg-gradient-to-r from-blue to-green text-navy font-semibold text-[14px]">
+    Start a Project
+  </a>
+</div>
           </motion.div>
         )}
       </AnimatePresence>

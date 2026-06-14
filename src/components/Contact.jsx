@@ -71,8 +71,8 @@ function FloatingWhatsApp() {
   const [showTooltip, setShowTooltip] = useState(false);
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
-      <AnimatePresence>
+  <div className="fixed bottom-24 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end gap-2">
+    <AnimatePresence>
         {showTooltip && (
           <motion.div
             initial={{ opacity: 0, y: 8, scale: 0.92 }}
