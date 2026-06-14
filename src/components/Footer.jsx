@@ -56,8 +56,7 @@ export default function Footer() {
       <div className="absolute inset-0 grid-bg opacity-10 pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
-        <div className="py-12 md:py-16 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-8 md:gap-12 border-b border-white/[0.06]">
-
+        <div className="py-12 md:py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 md:gap-12 border-b border-white/[0.06]">
           {/* Logo + description + socials */}
           <div className="col-span-2 lg:col-span-2">
             <a href="#home" className="flex items-center gap-2.5 mb-6">

@@ -5,6 +5,7 @@ import Hero from "./components/Hero";
 import About from "./components/About";
 import Services from "./components/Services";
 import WhyUs from "./components/WhyUs";
+import Stats from "./components/Stats";
 import Projects from "./components/Projects";
 import ProjectDetail from "./pages/ProjectDetail";
 import CoreValues from "./components/CoreValues";
@@ -21,12 +22,14 @@ function HomePage() {
       <About />
       <Services />
       <WhyUs />
+        <Stats />
       <Projects />
       <CoreValues />
       <Roadmap />
       <TechStack />
       <CTA />
       <Contact />
+    
       <Footer />
     </>
   );

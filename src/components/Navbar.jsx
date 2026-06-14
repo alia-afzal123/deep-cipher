@@ -1,17 +1,56 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "../assets/logo.png";
 import { Menu, X, ChevronDown, Moon, Sun, ArrowRight } from "lucide-react";
+
+const NAV_SECTIONS = [
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "services", label: "Services" },
+  { id: "roadmap", label: "Roadmap" },
+  { id: "contact", label: "Contact" },
+];
 
 export default function Navbar({ darkMode, setDarkMode }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [active, setActive] = useState("Home");
+  const hoverActive = useRef(null);
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Scroll-spy: highlight the nav item for the section currently in view
+  useEffect(() => {
+    const sections = NAV_SECTIONS
+      .map((s) => ({ ...s, el: document.getElementById(s.id) }))
+      .filter((s) => s.el);
+
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const match = sections.find((s) => s.el === entry.target);
+            if (match && hoverActive.current === null) {
+              setActive(match.label);
+            }
+          }
+        });
+      },
+      {
+        rootMargin: "-40% 0px -50% 0px",
+        threshold: 0,
+      }
+    );
+
+    sections.forEach((s) => observer.observe(s.el));
+    return () => observer.disconnect();
   }, []);
 
   const navItemClass = (name) => {
@@ -21,6 +60,19 @@ export default function Navbar({ darkMode, setDarkMode }) {
     return "px-[18px] py-2 rounded-full transition-all duration-200 text-gray-400 hover:text-white hover:bg-gradient-to-r hover:from-blue/10 hover:to-green/10 hover:shadow-[0_0_20px_rgba(16,185,129,0.4),0_0_35px_rgba(59,130,246,0.25)] hover:border hover:border-green/20 border border-transparent";
   };
 
+  // Underline that animates from 0 -> full width on hover, sliding left to right
+  const NavLink = ({ name, href, children, extraClass = "" }) => (
+    <a
+      href={href}
+      onMouseEnter={() => { hoverActive.current = name; setActive(name); }}
+      onMouseLeave={() => { hoverActive.current = null; }}
+      className={`relative group ${navItemClass(name)} ${extraClass}`}
+    >
+      <span className="relative z-10">{children}</span>
+      <span className="absolute left-[18px] right-[18px] -bottom-0.5 h-[2px] rounded-full bg-gradient-to-r from-blue to-green scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out" />
+    </a>
+  );
+
   return (
     <motion.nav
       initial={{ y: -40, opacity: 0 }}
@@ -28,7 +80,11 @@ export default function Navbar({ darkMode, setDarkMode }) {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="fixed top-0 left-0 w-full z-50"
     >
-      <div className="relative px-4 sm:px-6 lg:px-12 py-4 transition-all duration-300 bg-[#070B12]/90 backdrop-blur-xl border-b border-white/[0.06]">
+      <div className={`relative px-4 sm:px-6 lg:px-12 transition-all duration-300 border-b ${
+        scrolled
+          ? "py-3 bg-[#070B12]/80 backdrop-blur-2xl border-white/[0.08] shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
+          : "py-4 bg-[#070B12]/40 backdrop-blur-md border-white/[0.04]"
+      }`}>
 
         <div className="absolute -top-16 left-[10%] w-60 h-32 bg-green/15 rounded-full blur-[60px] pointer-events-none"></div>
         <div className="absolute -top-16 right-[15%] w-48 h-32 bg-blue/15 rounded-full blur-[60px] pointer-events-none"></div>
@@ -37,17 +93,24 @@ export default function Navbar({ darkMode, setDarkMode }) {
 
           {/* Logo */}
           <a href="#home" className="flex items-center gap-2.5 shrink-0">
-            <img src={logo} alt="DeepCiphers" className="h-11 sm:h-13 w-auto object-contain -ml-2" />
+            <img src={logo} alt="DeepCiphers" className="h-15 sm:h-18 w-auto object-contain -ml-2" />
           </a>
 
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-0.5 bg-white/[0.03] border border-white/[0.06] rounded-full p-1.5 text-[13px] font-medium">
-            <a href="#home" onMouseEnter={() => setActive("Home")} className={navItemClass("Home")}>Home</a>
-            <a href="#about" onMouseEnter={() => setActive("About")} className={navItemClass("About")}>About</a>
+            <NavLink name="Home" href="#home">Home</NavLink>
+            <NavLink name="About" href="#about">About</NavLink>
 
-            <div className="relative" onMouseEnter={() => { setServicesOpen(true); setActive("Services"); }} onMouseLeave={() => setServicesOpen(false)}>
-              <button className={navItemClass("Services") + " flex items-center gap-1"}>
-                Services <ChevronDown size={13} className={servicesOpen ? "transition-transform duration-200 rotate-180" : "transition-transform duration-200"} />
+            <div
+              className="relative"
+              onMouseEnter={() => { setServicesOpen(true); hoverActive.current = "Services"; setActive("Services"); }}
+              onMouseLeave={() => { setServicesOpen(false); hoverActive.current = null; }}
+            >
+              <button className={`relative group ${navItemClass("Services")} flex items-center gap-1`}>
+                <span className="relative z-10 flex items-center gap-1">
+                  Services <ChevronDown size={13} className={servicesOpen ? "transition-transform duration-200 rotate-180" : "transition-transform duration-200"} />
+                </span>
+                <span className="absolute left-[18px] right-[18px] -bottom-0.5 h-[2px] rounded-full bg-gradient-to-r from-blue to-green scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out" />
               </button>
               <AnimatePresence>
                 {servicesOpen && (
@@ -69,9 +132,9 @@ export default function Navbar({ darkMode, setDarkMode }) {
               </AnimatePresence>
             </div>
 
-            <a href="#team" onMouseEnter={() => setActive("Team")} className={navItemClass("Team")}>Team</a>
-            <a href="#roadmap" onMouseEnter={() => setActive("Roadmap")} className={navItemClass("Roadmap")}>Roadmap</a>
-            <a href="#contact" onMouseEnter={() => setActive("Contact")} className={navItemClass("Contact")}>Contact</a>
+            <NavLink name="Team" href="#team">Team</NavLink>
+            <NavLink name="Roadmap" href="#roadmap">Roadmap</NavLink>
+            <NavLink name="Contact" href="#contact">Contact</NavLink>
           </div>
 
           {/* Desktop Right Side */}

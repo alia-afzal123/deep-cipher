@@ -5,12 +5,14 @@ import useReveal from "../hooks/useReveal";
 import { projectsData } from "../data/projects";
 
 function ProjectCard({ project, index }) {
+  const fromLeft = index % 2 === 0;
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, x: fromLeft ? -60 : 60 }}
+      whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.6, delay: (index % 3) * 0.12, ease: "easeOut" }}
+      transition={{ duration: 0.7, delay: (index % 3) * 0.1, ease: "easeOut" }}
       className="relative group rounded-2xl overflow-hidden cursor-pointer h-[420px] border border-white/[0.06]"
     >
       <Link to={`/projects/${project.slug}`} className="absolute inset-0 z-20" aria-label={`Explore ${project.title}`} />
@@ -18,7 +20,7 @@ function ProjectCard({ project, index }) {
       <img
         src={project.image}
         alt={project.title}
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
       />
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10 group-hover:from-black/95 transition-colors duration-300" />
@@ -38,17 +40,16 @@ function ProjectCard({ project, index }) {
         </p>
 
         <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.06] border border-white/[0.12] text-sm text-white font-medium backdrop-blur-sm opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-          Explore Me
+          Explore Project
           <ArrowUpRight size={15} />
         </div>
       </div>
 
-      <div className="absolute inset-0 rounded-2xl border border-transparent group-hover:border-green/30 transition-colors duration-300 pointer-events-none" />
+      <div className="absolute inset-0 rounded-2xl border border-transparent group-hover:border-green/30 group-hover:shadow-[0_0_30px_rgba(16,185,129,0.2)] transition-all duration-300 pointer-events-none" />
     </motion.div>
   );
 }
 
-// Split projects into groups of 3 (one "page" each)
 function chunk(arr, size) {
   const result = [];
   for (let i = 0; i < arr.length; i += size) {
@@ -67,7 +68,6 @@ export default function Projects() {
       <div className="absolute top-[-10%] right-1/4 w-[600px] h-[600px] bg-blue/6 rounded-full blur-[180px] pointer-events-none" />
       <div className="absolute bottom-[-10%] left-1/4 w-[600px] h-[600px] bg-green/6 rounded-full blur-[180px] pointer-events-none" />
 
-      {/* Heading - shown once at the top */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-32 pb-12">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -88,7 +88,6 @@ export default function Projects() {
         </motion.div>
       </div>
 
-      {/* Snap-scroll pages, 3 cards per page */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 space-y-10 pb-20">
         {pages.map((pageProjects, pageIndex) => (
           <div
@@ -96,7 +95,7 @@ export default function Projects() {
             className="grid grid-cols-1 md:grid-cols-3 gap-6 min-h-[60vh] items-center"
           >
             {pageProjects.map((project, i) => (
-              <ProjectCard key={project.slug} project={project} index={i} />
+              <ProjectCard key={project.slug} project={project} index={pageIndex * 3 + i} />
             ))}
           </div>
         ))}

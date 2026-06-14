@@ -95,3 +95,8 @@ html {
 .light .via-black\/55 { --tw-gradient-via: rgba(241,245,249,0.55) !important; }
 .light .from-black\/90 { --tw-gradient-from: rgba(241,245,249,0.90) !important; }
 .light .from-black\/80 { --tw-gradient-from: rgba(241,245,249,0.80) !important; }
+
+section {
+  padding-top: 3rem !important;
+  padding-bottom: 3rem !important;
+}
