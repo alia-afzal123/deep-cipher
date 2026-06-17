@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Lightbulb, Target, Eye, Rocket } from "lucide-react";
 import useReveal from "../hooks/useReveal";
@@ -10,10 +10,10 @@ const tabs = [
     label: "Our Identity",
     heading: "What Makes Us Different",
     points: [
-      "We think like innovators, not just developers",
-      "We build with purpose — every line of code has intent",
-      "We focus on impact, not just output",
-      "We design systems that grow with your ambitions",
+      "We think like innovators, not just developers.",
+      "We build with purpose every line of code has intent.",
+      "We focus on impact, not just output.",
+      "We design systems that grow with your ambitions.",
     ],
     closing: "Where ideas evolve into powerful digital realities.",
   },
@@ -23,10 +23,10 @@ const tabs = [
     label: "Mission",
     heading: "What We're Here to Do",
     points: [
-      "Turn complexity into simplicity",
-      "Scale with ambition — no ceiling, no compromise",
-      "Build systems that think, adapt, and evolve",
-      "Deliver solutions that outlast trends",
+      "Turn complexity into simplicity.",
+      "Scale with ambition no ceiling, no compromise.",
+      "Build systems that think, adapt, and evolve.",
+      "Deliver solutions that outlast trends.",
     ],
     closing: "We don't just deliver projects — we build futures.",
   },
@@ -36,9 +36,9 @@ const tabs = [
     label: "Vision",
     heading: "Where We're Headed",
     points: [
-      "Lead at the intersection of AI, Cybersecurity, and Innovation",
-      "Become the go-to tech partner for ambitious companies",
-      "Build products that define industries, not follow them",
+      "Lead at the intersection of AI, Cybersecurity, and Innovation.",
+      "Become the go-to tech partner for ambitious companies.",
+      "Build products that define industries, not follow them.",
     ],
     closing: "The future belongs to those who build it — and we're building it.",
   },
@@ -48,60 +48,22 @@ const tabs = [
     label: "Purpose",
     heading: "Why We Exist",
     points: [
-      "To unlock digital opportunities for businesses of all sizes",
-      "To build scalable products that create real-world impact",
-      "To help companies move from survival to dominance",
+      "To unlock digital opportunities for businesses of all sizes.",
+      "To build scalable products that create real-world impact.",
+      "To help companies move from survival to dominance.",
     ],
     closing: "We exist to make the impossible, inevitable.",
   },
 ];
 
-const DURATION = 5000; // ms per tab
-const TICK = 50; // ms
-
 export default function WhyUs() {
   const revealRef = useReveal();
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [progress, setProgress] = useState(0);
-  const [paused, setPaused] = useState(false);
-
-  const current = tabs[activeIndex];
+  const [active, setActive] = useState("Identity");
+  const current = tabs.find((t) => t.id === active);
   const Icon = current.icon;
 
-  // Reset progress whenever the active tab changes
-  useEffect(() => {
-    setProgress(0);
-  }, [activeIndex]);
-
-  // Auto-advance ticking
-  useEffect(() => {
-    if (paused) return;
-    const interval = setInterval(() => {
-      setProgress((p) => {
-        const next = p + (100 / (DURATION / TICK));
-        if (next >= 100) {
-          setActiveIndex((i) => (i + 1) % tabs.length);
-          return 0;
-        }
-        return next;
-      });
-    }, TICK);
-    return () => clearInterval(interval);
-  }, [paused, activeIndex]);
-
-  const handleTabClick = (index) => {
-    setActiveIndex(index);
-    setProgress(0);
-  };
-
   return (
-    <section
-      id="about"
-      ref={revealRef}
-      className="section-reveal relative py-28 overflow-hidden"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
+    <section id="about" ref={revealRef} className="section-reveal relative py-28 overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-green/5 rounded-full blur-[160px] pointer-events-none" />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-10">
@@ -123,38 +85,15 @@ export default function WhyUs() {
           </p>
         </motion.div>
 
-        {/* Segmented progress bars / tab triggers */}
-        <div className="flex gap-2 md:gap-3 mb-3">
-          {tabs.map((tab, i) => (
-            <button
-              key={tab.id}
-              onClick={() => handleTabClick(i)}
-              className="relative flex-1 h-1.5 rounded-full bg-white/[0.06] overflow-hidden"
-              aria-label={`Show ${tab.label}`}
-            >
-              <motion.div
-                className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-blue to-green"
-                style={{
-                  width:
-                    i < activeIndex ? "100%" : i === activeIndex ? `${progress}%` : "0%",
-                }}
-                transition={{ ease: "linear" }}
-              />
-            </button>
-          ))}
-        </div>
-
-        {/* Tab labels */}
         <div className="flex flex-wrap justify-center gap-3 mb-12">
-          {tabs.map((tab, i) => {
+          {tabs.map((tab) => {
             const TabIcon = tab.icon;
-            const isActive = i === activeIndex;
             return (
               <button
                 key={tab.id}
-                onClick={() => handleTabClick(i)}
+                onClick={() => setActive(tab.id)}
                 className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
-                  isActive
+                  active === tab.id
                     ? "bg-gradient-to-r from-blue/30 to-green/30 text-white border border-green/40 shadow-[0_0_20px_rgba(16,185,129,0.2)]"
                     : "bg-white/[0.03] border border-white/10 text-gray-400 hover:text-white hover:bg-gradient-to-r hover:from-blue/20 hover:to-green/20 hover:border-green/30 hover:shadow-[0_0_20px_rgba(16,185,129,0.2)]"
                 }`}
@@ -168,11 +107,11 @@ export default function WhyUs() {
 
         <AnimatePresence mode="wait">
           <motion.div
-            key={current.id}
-            initial={{ opacity: 0, y: 16 }}
+            key={active}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -16 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.35 }}
             className="grid md:grid-cols-2 gap-8 items-center"
           >
             <div>
@@ -188,7 +127,7 @@ export default function WhyUs() {
                     key={i}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.08 }}
+                    transition={{ delay: i * 0.1 }}
                     className="flex items-start gap-3 text-gray-300"
                   >
                     <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-green shrink-0" />

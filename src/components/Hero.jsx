@@ -1,7 +1,8 @@
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { useState, useEffect } from "react";
 import useReveal from "../hooks/useReveal";
+import introVideo from "../assets/intro.mp4";
 
 const slides = [
   {
@@ -15,66 +16,27 @@ const slides = [
     kenBurns: { initial: { scale: 1, y: 0 }, animate: { scale: 1.15, y: -20 } },
   },
   {
-    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1920&q=90",
+    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1920&q=90&fit=crop",
+    label: "UI/UX Design",
+    kenBurns: { initial: { scale: 1.12, x: -25 }, animate: { scale: 1, x: 25 } },
+  },
+  {
+    image: "https://i0.wp.com/picjumbo.com/wp-content/uploads/cyber-security-abstract-background-free-image.jpeg?w=600&quality=80",
     label: "Cybersecurity",
     kenBurns: { initial: { scale: 1.12, x: -25 }, animate: { scale: 1, x: 25 } },
   },
   {
-    image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1920&q=90",
-    label: "AI Solutions",
-    kenBurns: { initial: { scale: 1.1, y: -20 }, animate: { scale: 1, y: 0 } },
-  },
-  {
     image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1920&q=90",
-    label: "UI/UX Design",
+    label: "Creative Design",
     kenBurns: { initial: { scale: 1.12, x: -20 }, animate: { scale: 1, x: 20 } },
   },
 ];
 
-const particles = [...Array(18)].map((_, i) => ({
-  id: i,
-  size: i % 4 === 0 ? 3 : i % 3 === 0 ? 2 : 1,
-  top: Math.random() * 100,
-  left: Math.random() * 100,
-  color: i % 2 === 0 ? "#10B981" : "#3B82F6",
-  duration: 3 + Math.random() * 5,
-  delay: Math.random() * 4,
-  depth: i % 3 === 0 ? 1.5 : i % 2 === 0 ? 1 : 0.5,
-}));
-
 export default function Hero() {
   const revealRef = useReveal();
-  const sectionRef = useRef(null);
   const [current, setCurrent] = useState(0);
+  const [videoEnded, setVideoEnded] = useState(false);
   const [prev, setPrev] = useState(null);
-
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const springX = useSpring(mouseX, { stiffness: 60, damping: 22, mass: 0.5 });
-  const springY = useSpring(mouseY, { stiffness: 60, damping: 22, mass: 0.5 });
-
-  const bgX = useTransform(springX, [-0.5, 0.5], [25, -25]);
-  const bgY = useTransform(springY, [-0.5, 0.5], [18, -18]);
-  const bgRotateX = useTransform(springY, [-0.5, 0.5], [4, -4]);
-  const bgRotateY = useTransform(springX, [-0.5, 0.5], [-4, 4]);
-  const contentX = useTransform(springX, [-0.5, 0.5], [-12, 12]);
-  const contentY = useTransform(springY, [-0.5, 0.5], [-8, 8]);
-  const glowX = useTransform(springX, [-0.5, 0.5], [12, -12]);
-  const glowY = useTransform(springY, [-0.5, 0.5], [8, -8]);
-  const particleX = useTransform(springX, [-0.5, 0.5], [-30, 30]);
-  const particleY = useTransform(springY, [-0.5, 0.5], [-20, 20]);
-
-  const handleMouseMove = (e) => {
-    if (!sectionRef.current) return;
-    const rect = sectionRef.current.getBoundingClientRect();
-    mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
-    mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
-  };
-
-  const handleMouseLeave = () => {
-    mouseX.set(0);
-    mouseY.set(0);
-  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -85,93 +47,95 @@ export default function Hero() {
   }, [current]);
 
   return (
-    <section
-      ref={(el) => {
-        sectionRef.current = el;
-        revealRef.current = el;
-      }}
-      id="home"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="section-reveal relative min-h-screen flex items-center overflow-hidden"
-      style={{ perspective: "1200px" }}
-    >
-      {prev !== null && (
+    <section ref={revealRef} id="home" className="section-reveal relative min-h-screen flex items-center overflow-hidden">
+
+      {/* ── Intro Video (background, 2 sec) ── */}
+      {!videoEnded && (
         <motion.div
-          key={"prev-" + prev}
+          className="absolute inset-0 z-[2]"
           initial={{ opacity: 1 }}
-          animate={{ opacity: 0 }}
-          transition={{ duration: 1.5, ease: "easeInOut" }}
-          style={{ x: bgX, y: bgY, rotateX: bgRotateX, rotateY: bgRotateY, scale: 1.08 }}
-          className="absolute inset-0 z-[1]"
+          animate={{ opacity: 1 }}
         >
-          <motion.img
-            src={slides[prev].image}
-            alt=""
-            initial={slides[prev].kenBurns.animate}
-            animate={slides[prev].kenBurns.animate}
+          <video
+            src={introVideo}
+            autoPlay
+            muted
+            playsInline
             className="w-full h-full object-cover"
+            onEnded={() => setVideoEnded(true)}
+            onTimeUpdate={(e) => {
+              if (e.target.currentTime >= 3) setVideoEnded(true);
+            }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/20" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         </motion.div>
       )}
 
-      <motion.div
-        key={"curr-" + current}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5, ease: "easeInOut" }}
-        style={{ x: bgX, y: bgY, rotateX: bgRotateX, rotateY: bgRotateY, scale: 1.08 }}
-        className="absolute inset-0 z-[2]"
-      >
-        <motion.img
-          src={slides[current].image}
-          alt={slides[current].label}
-          initial={slides[current].kenBurns.initial}
-          animate={slides[current].kenBurns.animate}
-          transition={{ duration: 3, ease: "easeInOut" }}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/20" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-      </motion.div>
+      {/* ── Slideshow (shows after video ends) ── */}
+      {videoEnded && (
+        <>
+          {prev !== null && (
+            <motion.div
+              key={"prev-" + prev}
+              initial={{ opacity: 1 }}
+              animate={{ opacity: 0 }}
+              transition={{ duration: 1.5, ease: "easeInOut" }}
+              className="absolute inset-0 z-[1]"
+            >
+              <motion.img
+                src={slides[prev].image}
+                alt=""
+                initial={slides[prev].kenBurns.animate}
+                animate={slides[prev].kenBurns.animate}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/20" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            </motion.div>
+          )}
+
+          <motion.div
+            key={"curr-" + current}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            className="absolute inset-0 z-[2]"
+          >
+            <motion.img
+              src={slides[current].image}
+              alt={slides[current].label}
+              initial={slides[current].kenBurns.initial}
+              animate={slides[current].kenBurns.animate}
+              transition={{ duration: 3, ease: "easeInOut" }}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/20" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          </motion.div>
+        </>
+      )}
 
       <div className="absolute inset-0 grid-bg opacity-15 z-[3] pointer-events-none" />
+      <div className="absolute top-1/3 left-1/3 w-[500px] h-[500px] bg-green/10 rounded-full blur-[160px] z-[3] pointer-events-none" />
 
-      <motion.div
-        style={{ x: glowX, y: glowY }}
-        className="absolute top-1/3 left-1/3 w-[500px] h-[500px] bg-green/10 rounded-full blur-[160px] z-[3] pointer-events-none"
-      />
-      <motion.div
-        style={{ x: glowX, y: glowY }}
-        className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-blue/10 rounded-full blur-[140px] z-[3] pointer-events-none"
-      />
+      {[...Array(10)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-1 h-1 rounded-full z-[4] pointer-events-none"
+          style={{
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+            backgroundColor: i % 2 === 0 ? "#10B981" : "#3B82F6",
+          }}
+          animate={{ y: [0, -30, 0], opacity: [0.1, 0.6, 0.1] }}
+          transition={{ duration: 3 + Math.random() * 4, repeat: Infinity, ease: "easeInOut", delay: Math.random() * 3 }}
+        />
+      ))}
 
-      <motion.div style={{ x: particleX, y: particleY }} className="absolute inset-0 z-[4] pointer-events-none">
-        {particles.map((p) => (
-          <motion.div
-            key={p.id}
-            className="absolute rounded-full"
-            style={{
-              top: `${p.top}%`,
-              left: `${p.left}%`,
-              width: `${p.size * 2}px`,
-              height: `${p.size * 2}px`,
-              backgroundColor: p.color,
-              boxShadow: `0 0 ${p.size * 4}px ${p.color}`,
-            }}
-            animate={{ y: [0, -30 * p.depth, 0], opacity: [0.1, 0.7, 0.1] }}
-            transition={{ duration: p.duration, repeat: Infinity, ease: "easeInOut", delay: p.delay }}
-          />
-        ))}
-      </motion.div>
-
-      <motion.div
-        style={{ x: contentX, y: contentY }}
-        className="relative z-[5] max-w-7xl mx-auto px-4 lg:px-10 pt-28 pb-20 w-full"
-      >
-        <div className="max-w-2xl">
+      {/* ── Content (always visible) ── */}
+      <div className="relative z-[5] max-w-7xl mx-auto px-4 lg:px-6 pt-28 pb-20 w-full">
+        <div className="max-w-3xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -185,12 +149,12 @@ export default function Hero() {
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.15 }}
-            className="font-display text-5xl md:text-7xl font-extrabold leading-[1.1] tracking-tight text-white"
+            transition={{ duration: 2, delay: 0.15 }}
+            className="font-display text-3xl md:text-5xl font-extrabold leading-[1.1] tracking-tight text-white"
           >
             We don't just
             <br />
-            build software —
+            build software.
             <br />
             <span className="gradient-text">we engineer digital</span>
             <br />
@@ -203,7 +167,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="mt-6 text-lg text-gray-300 max-w-xl leading-relaxed"
           >
-            AI, web development, mobile apps, UI/UX design and enterprise software —
+            AI, web development, mobile apps, UI/UX design and enterprise software
             engineered for impact, not just delivery.
           </motion.p>
 
@@ -253,7 +217,7 @@ export default function Hero() {
             </AnimatePresence>
           </motion.div>
         </div>
-      </motion.div>
+      </div>
 
       <motion.div
         animate={{ y: [0, 10, 0] }}
