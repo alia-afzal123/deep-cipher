@@ -112,7 +112,7 @@ export default function About() {
             <div className="absolute top-0 right-0 w-48 h-48 bg-green/10 rounded-full blur-[80px]" />
             <div className="absolute bottom-0 left-0 w-36 h-36 bg-blue/10 rounded-full blur-[60px]" />
             <p className="relative z-10 font-display text-xl md:text-3xl font-extrabold leading-relaxed text-center gradient-text italic">
-              "We don't follow trends we decode them, rebuild them, and lead them."
+              We don't follow trends we decode them, rebuild them, and lead them.
             </p>
             <p className="relative z-10 text-center text-sm text-gray-500 mt-4">— DeepCiphers</p>
           </motion.div>

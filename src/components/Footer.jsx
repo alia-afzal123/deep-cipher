@@ -64,7 +64,7 @@ export default function Footer() {
             </a>
 
             <p className="text-gray-400 text-sm leading-relaxed max-w-xs mb-8">
-              We don't just build software — we engineer digital breakthroughs. AI, web, mobile, and cybersecurity solutions built for impact.
+              We don't just build software we engineer digital breakthroughs. AI, web, mobile, and cybersecurity solutions built for impact.
             </p>
 
             <div className="flex items-center gap-3 flex-wrap">

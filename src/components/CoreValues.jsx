@@ -29,7 +29,7 @@ const values = [
   {
     number: "05",
     title: "Impact",
-    desc: "We measure success by the real-world results our work creates — not just the lines of code we write.",
+    desc: "We measure success by the real-world results our work creates not just the lines of code we write.",
     image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=80",
   },
   {

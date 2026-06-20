@@ -28,7 +28,7 @@ const tabs = [
       "Build systems that think, adapt, and evolve.",
       "Deliver solutions that outlast trends.",
     ],
-    closing: "We don't just deliver projects — we build futures.",
+    closing: "We don't just deliver projects we build futures.",
   },
   {
     id: "Vision",
@@ -40,7 +40,7 @@ const tabs = [
       "Become the go-to tech partner for ambitious companies.",
       "Build products that define industries, not follow them.",
     ],
-    closing: "The future belongs to those who build it — and we're building it.",
+    closing: "The future belongs to those who build it and we're building it.",
   },
   {
     id: "Purpose",

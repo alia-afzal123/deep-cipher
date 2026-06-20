@@ -15,11 +15,11 @@ export default function Navbar({ darkMode, setDarkMode }) {
   }, []);
 
   const navItemClass = (name) => {
-  if (active === name) {
-    return "px-[18px] py-2 rounded-full transition-all duration-200 bg-gradient-to-r from-blue/20 to-green/20 text-white shadow-[0_0_20px_rgba(16,185,129,0.5),0_0_40px_rgba(59,130,246,0.3)] border border-green/30";
-  }
-  return `px-[18px] py-2 rounded-full transition-all duration-200 ${darkMode ? "text-gray-400 hover:text-white" : "text-gray-700 hover:text-gray-900"} hover:bg-gradient-to-r hover:from-blue/10 hover:to-green/10 hover:shadow-[0_0_20px_rgba(16,185,129,0.4),0_0_35px_rgba(59,130,246,0.25)] hover:border hover:border-green/20 border border-transparent`;
-};
+    if (active === name) {
+      return "px-[18px] py-2 rounded-full transition-all duration-200 bg-gradient-to-r from-blue/20 to-green/20 text-white shadow-[0_0_20px_rgba(16,185,129,0.5),0_0_40px_rgba(59,130,246,0.3)] border border-green/30";
+    }
+    return `px-[18px] py-2 rounded-full transition-all duration-200 ${darkMode ? "text-gray-400 hover:text-white" : "text-gray-700 hover:text-gray-900"} hover:bg-gradient-to-r hover:from-blue/10 hover:to-green/10 hover:shadow-[0_0_20px_rgba(16,185,129,0.4),0_0_35px_rgba(59,130,246,0.25)] hover:border hover:border-green/20 border border-transparent`;
+  };
 
   return (
     <motion.nav
@@ -34,12 +34,10 @@ export default function Navbar({ darkMode, setDarkMode }) {
 
         <div className="max-w-[1400px] mx-auto flex items-center justify-between relative z-10">
 
-          {/* Logo */}
           <a href="#home" className="flex items-center gap-2.5 shrink-0">
             <img src={logo} alt="DeepCiphers" className="h-11 sm:h-13 w-auto object-contain -ml-2" />
           </a>
 
-          {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-0.5 bg-white/[0.03] border border-white/[0.06] rounded-full p-1.5 text-[13px] font-medium">
             <a href="#home" onMouseEnter={() => setActive("Home")} className={navItemClass("Home")}>Home</a>
             <a href="#about" onMouseEnter={() => setActive("About")} className={navItemClass("About")}>About</a>
@@ -73,31 +71,41 @@ export default function Navbar({ darkMode, setDarkMode }) {
             <a href="#contact" onMouseEnter={() => setActive("Contact")} className={navItemClass("Contact")}>Contact</a>
           </div>
 
-          {/* Desktop Right Side */}
           <div className="hidden lg:flex items-center gap-4">
-            <button onClick={() => setDarkMode(!darkMode)} className="w-10 h-[23px] rounded-full bg-white/[0.05] border border-white/[0.08] relative flex items-center px-[2px]">
-              <motion.div
-                className="w-[17px] h-[17px] rounded-full bg-gradient-to-br from-blue to-green flex items-center justify-center shadow-[0_0_10px_rgba(16,185,129,0.5)]"
-                animate={{ x: darkMode ? 19 : 1 }}
-                transition={{ type: "spring", stiffness: 400, damping: 28 }}
-              >
-                {darkMode ? <Moon size={9} className="text-navy" /> : <Sun size={9} className="text-navy" />}
-              </motion.div>
-            </button>
+            <button onClick={() => setDarkMode(!darkMode)} className="w-16 h-[36px] rounded-full bg-white/[0.05] border border-white/[0.08] relative flex items-center px-[2px]">
+  <motion.div
+    className="w-[28px] h-[28px] rounded-full bg-gradient-to-br from-blue to-green flex items-center justify-center shadow-[0_0_10px_rgba(16,185,129,0.5)]"
+    animate={{ x: darkMode ? 28 : 1 }}
+    transition={{ type: "spring", stiffness: 400, damping: 28 }}
+  >
+    {darkMode ? <Moon size={15} className="text-navy" /> : <Sun size={15} className="text-navy" />}
+  </motion.div>
+</button>
 
             <a href="#contact" className="flex items-center gap-1.5 px-6 py-2.5 rounded-full bg-gradient-to-r from-blue to-green text-[13px] font-semibold text-navy shadow-[0_6px_24px_rgba(16,185,129,0.3)] hover:scale-[1.03] transition-transform duration-200 whitespace-nowrap">
               Start a project <ArrowRight size={14} />
             </a>
           </div>
 
-          {/* Mobile Hamburger */}
-          <button className="lg:hidden text-white p-2" onClick={() => setMenuOpen(!menuOpen)}>
-            {menuOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
+          <div className="flex lg:hidden items-center gap-3">
+           <button onClick={() => setDarkMode(!darkMode)} className="w-12 h-[28px] sm:w-20 sm:h-[50px] rounded-full bg-white/[0.05] border border-white/[0.08] relative flex items-center px-[2px]">
+  <motion.div
+    className="w-[20px] h-[20px] sm:w-[30px] sm:h-[30px] rounded-full bg-gradient-to-br from-blue to-green flex items-center justify-center shadow-[0_0_10px_rgba(16,185,129,0.5)]"
+    animate={{ x: darkMode ? 19 : 1 }}
+    transition={{ type: "spring", stiffness: 400, damping: 28 }}
+  >
+    {darkMode ? <Moon size={11} className="sm:hidden text-navy" /> : <Sun size={11} className="sm:hidden text-navy" />}
+    {darkMode ? <Moon size={18} className="hidden sm:block text-navy" /> : <Sun size={18} className="hidden sm:block text-navy" />}
+  </motion.div>
+</button>
+
+            <button className={darkMode ? "text-white p-2" : "text-gray-900 p-2"} onClick={() => setMenuOpen(!menuOpen)}>
+              {menuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div

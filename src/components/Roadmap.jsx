@@ -7,13 +7,13 @@ const milestones = [
     year: "2026",
     icon: Rocket,
     title: "Foundation & Launch",
-    desc: "DeepCiphers founded with a clear vision — building a team, establishing core services, and laying the groundwork for premium digital solutions.",
+    desc: "DeepCiphers founded with a clear vision building a team, establishing core services, and laying the groundwork for premium digital solutions.",
   },
   {
     year: "2027",
     icon: Users,
     title: "Core Team & Service Expansion",
-    desc: "Growing our team of developers, designers, and strategists while scaling our offerings — enterprise apps, UI/UX systems, and marketing.",
+    desc: "Growing our team of developers, designers, and strategists while scaling our offerings enterprise apps, UI/UX systems, and marketing.",
   },
   {
     year: "2028",
@@ -25,7 +25,7 @@ const milestones = [
     year: "2029",
     icon: Layers,
     title: "SaaS Products & Platforms",
-    desc: "Shifting towards scalable, product-based offerings — building our own SaaS platforms for businesses worldwide.",
+    desc: "Shifting towards scalable, product-based offerings building our own SaaS platforms for businesses worldwide.",
   },
   {
     year: "2030",
@@ -59,7 +59,7 @@ export default function Roadmap() {
             The <span className="gradient-text">Roadmap</span>
           </h2>
           <p className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto mt-4 leading-relaxed">
-            Where we've been, and where we're headed — our journey from foundation to global impact.
+            Where we've been, and where we're headed our journey from foundation to global impact.
           </p>
         </motion.div>
 
@@ -86,9 +86,9 @@ export default function Roadmap() {
                   </div>
 
                   <p className="mt-4 font-display text-2xl font-extrabold gradient-text">{m.year}</p>
-                  <h3 className="mt-2 font-display text-base font-bold text-white group-hover:text-green transition-colors duration-200">
-                    {m.title}
-                  </h3>
+                  <h3 className="mt-2 font-display text-base font-bold text-white group-hover:text-green transition-colors duration-200 min-h-[40px] flex items-center justify-center">
+  {m.title}
+</h3>
                   <p className="mt-2 text-gray-400 text-xs leading-relaxed px-1 group-hover:text-gray-300 transition-colors duration-200">
                     {m.desc}
                   </p>

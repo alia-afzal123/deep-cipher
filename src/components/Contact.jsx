@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Phone } from "lucide-react";
+import { Mail, Phone, X, MoreHorizontal } from "lucide-react";
 import { useState } from "react";
 import useReveal from "../hooks/useReveal";
 
@@ -66,44 +66,59 @@ const socials = [
   },
 ];
 
-// ── Floating WhatsApp Bubble ──────────────────────────────────────────────────
+// ── Floating Contact Bubble (WhatsApp + Email) ─────────────────────────────
 function FloatingWhatsApp() {
-  const [showTooltip, setShowTooltip] = useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
-  <div className="fixed bottom-24 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end gap-2">
-    <AnimatePresence>
-        {showTooltip && (
-          <motion.div
-            initial={{ opacity: 0, y: 8, scale: 0.92 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 8, scale: 0.92 }}
-            transition={{ duration: 0.18 }}
-            className="bg-[#1f2937] text-white text-xs font-medium px-3 py-2 rounded-xl shadow-lg border border-white/10 whitespace-nowrap mb-1"
-          >
-            Chat with us on WhatsApp
-          </motion.div>
+    <div className="fixed bottom-24 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end gap-3">
+      <AnimatePresence>
+        {open && (
+          <>
+            <motion.a
+              href="mailto:deepciphers644@gmail.com"
+              initial={{ opacity: 0, y: 10, scale: 0.85 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.85 }}
+              transition={{ duration: 0.18, delay: 0.04 }}
+              className="w-12 h-12 rounded-full bg-gradient-to-br from-blue to-green flex items-center justify-center text-navy shadow-[0_4px_20px_rgba(0,0,0,0.4)]"
+              aria-label="Email us"
+            >
+              <Mail size={20} />
+            </motion.a>
+
+            <motion.a
+              href={`https://wa.me/${WHATSAPP_NUMBER}`}
+              target="_blank"
+              rel="noreferrer"
+              initial={{ opacity: 0, y: 10, scale: 0.85 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.85 }}
+              transition={{ duration: 0.18 }}
+              className="w-12 h-12 rounded-full bg-[#25D366] flex items-center justify-center text-white shadow-[0_4px_20px_rgba(37,211,102,0.5)]"
+              aria-label="Chat on WhatsApp"
+            >
+              <WhatsAppIcon size={22} />
+            </motion.a>
+          </>
         )}
       </AnimatePresence>
 
-      <motion.a
-        href={`https://wa.me/${WHATSAPP_NUMBER}`}
-        target="_blank"
-        rel="noreferrer"
-        onMouseEnter={() => setShowTooltip(true)}
-        onMouseLeave={() => setShowTooltip(false)}
+      <motion.button
+        onClick={() => setOpen(!open)}
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 1, type: "spring", stiffness: 260, damping: 20 }}
-        whileHover={{ scale: 1.12 }}
+        whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
-        className="w-14 h-14 rounded-full bg-[#25D366] flex items-center justify-center text-white shadow-[0_4px_24px_rgba(37,211,102,0.5)] hover:shadow-[0_6px_32px_rgba(37,211,102,0.7)] transition-shadow duration-200"
-        aria-label="Chat on WhatsApp"
+        className="relative w-14 h-14 rounded-full bg-gradient-to-br from-blue to-green flex items-center justify-center text-navy shadow-[0_4px_24px_rgba(16,185,129,0.5)] hover:shadow-[0_6px_32px_rgba(16,185,129,0.7)] transition-shadow duration-200"
+        aria-label="Contact options"
       >
-        {/* Pulse ring */}
-        <span className="absolute w-14 h-14 rounded-full bg-[#25D366]/40 animate-ping" />
-        <WhatsAppIcon size={28} />
-      </motion.a>
+        {!open && <span className="absolute w-14 h-14 rounded-full bg-green/40 animate-ping" />}
+        <motion.div animate={{ rotate: open ? 45 : 0 }} transition={{ duration: 0.2 }}>
+          {open ? <X size={24} /> : <MoreHorizontal size={24} />}
+        </motion.div>
+      </motion.button>
     </div>
   );
 }
@@ -130,7 +145,6 @@ export default function Contact() {
 
   return (
     <>
-      {/* Floating WhatsApp Button — visible across whole site */}
       <FloatingWhatsApp />
 
       <section ref={revealRef} id="contact" className="section-reveal relative py-16 md:py-24 lg:py-32 overflow-hidden">
@@ -138,7 +152,6 @@ export default function Contact() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[600px] lg:w-[800px] h-[300px] md:h-[400px] lg:h-[500px] bg-green/8 rounded-full blur-[180px] pointer-events-none" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
-          {/* Heading */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -159,7 +172,6 @@ export default function Contact() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10 lg:gap-12 items-start">
 
-            {/* ── LEFT: Connect With Us ── */}
             <motion.div
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -170,7 +182,6 @@ export default function Contact() {
                 <h3 className="font-display font-bold text-white text-lg md:text-xl mb-2">Connect With Us</h3>
                 <p className="text-gray-500 text-sm mb-6">Reach out through any of these channels</p>
 
-                {/* All icons in one row */}
                 <div className="flex items-center gap-3 flex-wrap">
                   {socials.map((s) => (
                     <motion.a
@@ -192,7 +203,6 @@ export default function Contact() {
                   ))}
                 </div>
 
-                {/* Quick info chips */}
                 <div className="mt-6 pt-5 border-t border-white/[0.06] space-y-2">
                   <div className="flex items-center gap-2 text-sm text-gray-400">
                     <span className="w-1.5 h-1.5 rounded-full bg-green inline-block" />
@@ -206,7 +216,6 @@ export default function Contact() {
               </div>
             </motion.div>
 
-            {/* ── RIGHT: Message Form ── */}
             <motion.div
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
