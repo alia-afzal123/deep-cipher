@@ -47,11 +47,11 @@ export default function CTA() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-display text-4xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.1] mb-6"
+          className="font-display text-2xl md:text-4xl lg:text-5xl font-extrabold text-white leading-[1.1] mb-6"
           >
             The future isn't built
             <br />
-            by waiting —
+            by waiting
             <br />
             <span className="gradient-text">it's built by those</span>
             <br />
@@ -63,10 +63,10 @@ export default function CTA() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.25 }}
-            className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed"
+            className="text-gray-350 text-lg md:text-xl max-w-1xl mx-auto mb-12 leading-relaxed"
           >
             Join DeepCiphers and let's engineer your digital breakthrough together.
-            Your vision deserves more than just code — it deserves a partner.
+            Your vision deserves more than just code it deserves a partner.
           </motion.p>
 
           <motion.div

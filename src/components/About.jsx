@@ -114,7 +114,7 @@ export default function About() {
             <p className="relative z-10 font-display text-xl md:text-3xl font-extrabold leading-relaxed text-center gradient-text italic">
               We don't follow trends we decode them, rebuild them, and lead them.
             </p>
-            <p className="relative z-10 text-center text-sm text-gray-500 mt-4">— DeepCiphers</p>
+            <p className="relative z-10 text-center text-sm text-gray-500 mt-4">DeepCiphers</p>
           </motion.div>
 
         </div>

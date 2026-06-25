@@ -63,9 +63,9 @@ function ValueRow({ value, index }) {
         <img
           src={value.image}
           alt={value.title}
-          className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-80 group-hover:scale-110 transition-all duration-500"
+          className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-95 group-hover:scale-110 transition-all duration-500"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-br from-green/0 to-blue/0 group-hover:from-green/15 group-hover:to-blue/15 transition-all duration-500" />
         <div className="absolute inset-0 border border-transparent group-hover:border-green/30 rounded-2xl transition-colors duration-300" />
       </div>

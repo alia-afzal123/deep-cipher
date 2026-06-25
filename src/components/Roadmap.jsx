@@ -4,31 +4,31 @@ import useReveal from "../hooks/useReveal";
 
 const milestones = [
   {
-    year: "2026",
+    year: "Step 1",
     icon: Rocket,
     title: "Foundation & Launch",
     desc: "DeepCiphers founded with a clear vision building a team, establishing core services, and laying the groundwork for premium digital solutions.",
   },
   {
-    year: "2027",
+    year: "Step 2",
     icon: Users,
     title: "Core Team & Service Expansion",
     desc: "Growing our team of developers, designers, and strategists while scaling our offerings enterprise apps, UI/UX systems, and marketing.",
   },
   {
-    year: "2028",
+    year: "Step 3",
     icon: Brain,
     title: "AI & Cybersecurity Integration",
     desc: "Introducing intelligent automation, AI-powered systems, and cybersecurity solutions to protect and empower digital infrastructure.",
   },
   {
-    year: "2029",
+    year: "Step 4",
     icon: Layers,
     title: "SaaS Products & Platforms",
     desc: "Shifting towards scalable, product-based offerings building our own SaaS platforms for businesses worldwide.",
   },
   {
-    year: "2030",
+    year: "Step 5",
     icon: Globe,
     title: "Global Scaling & Expansion",
     desc: "Expanding our reach to international markets, establishing a stronger global presence and brand recognition.",

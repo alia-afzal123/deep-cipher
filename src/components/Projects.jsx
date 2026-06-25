@@ -23,23 +23,23 @@ function ProjectCard({ project, index }) {
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
       />
 
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10 group-hover:from-black/95 transition-colors duration-300" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/95 transition-colors duration-300" />
       <div className="absolute inset-0 bg-gradient-to-br from-green/0 to-blue/0 group-hover:from-green/15 group-hover:to-blue/15 transition-all duration-500" />
 
       <span className="absolute top-5 left-5 px-3 py-1 rounded-full text-[11px] font-medium bg-white/[0.08] text-gray-200 border border-white/[0.1] backdrop-blur-sm">
         {project.category}
       </span>
 
-      <div className="absolute bottom-0 left-0 right-0 p-6">
+      <div className="absolute bottom-0 left-0 right-0 p-6 bg-black/60 backdrop-blur-sm">
         <div className="w-8 h-1 rounded-full bg-gradient-to-r from-blue to-green mb-3 scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-400" />
-        <h3 className="font-display font-bold text-white text-2xl leading-tight group-hover:text-green transition-colors duration-200">
+        <h3 className="font-display font-extrabold text-white text-2xl leading-tight group-hover:text-green !text-white transition-colors duration-200 text-white">
           {project.title}
         </h3>
-        <p className="mt-2 text-sm text-gray-300 leading-relaxed line-clamp-2 opacity-90 group-hover:opacity-100 transition-opacity duration-300">
+        <p className="mt-2 text-sm text-gray-200 font-medium drop-shadow-[0_1px_4px_rgba(0,0,0,1)] drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] leading-relaxed line-clamp-2 opacity-90 group-hover:opacity-100 transition-opacity duration-300">
           {project.shortDesc}
         </p>
 
-        <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.06] border border-white/[0.12] text-sm text-white font-medium backdrop-blur-sm opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+        <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.06] border border-white/[0.12] text-sm !text-white font-medium backdrop-blur-sm bg-white/20 opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
           Explore Project
           <ArrowUpRight size={15} />
         </div>

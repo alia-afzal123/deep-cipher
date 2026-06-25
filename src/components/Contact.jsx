@@ -285,7 +285,7 @@ export default function Contact() {
                   className="w-full py-3.5 rounded-xl bg-gradient-to-r from-blue to-green text-navy font-bold flex items-center justify-center gap-2 shadow-[0_8px_30px_rgba(16,185,129,0.3)] hover:shadow-[0_12px_40px_rgba(16,185,129,0.5)] transition-all duration-200"
                 >
                   <WhatsAppIcon size={16} />
-                  Send via WhatsApp
+                  Send Message
                 </motion.button>
 
                 <p className="text-center text-xs text-gray-600">

@@ -16,9 +16,9 @@ export default function Navbar({ darkMode, setDarkMode }) {
 
   const navItemClass = (name) => {
     if (active === name) {
-      return "px-[18px] py-2 rounded-full transition-all duration-200 bg-gradient-to-r from-blue/20 to-green/20 text-white shadow-[0_0_20px_rgba(16,185,129,0.5),0_0_40px_rgba(59,130,246,0.3)] border border-green/30";
+      return "px-[18px] py-2 rounded-lg transition-all duration-200 bg-gradient-to-r from-blue/20 to-green/20 text-white shadow-[0_0_20px_rgba(16,185,129,0.5),0_0_40px_rgba(59,130,246,0.3)] border border-green/30";
     }
-    return `px-[18px] py-2 rounded-full transition-all duration-200 ${darkMode ? "text-gray-400 hover:text-white" : "text-gray-700 hover:text-gray-900"} hover:bg-gradient-to-r hover:from-blue/10 hover:to-green/10 hover:shadow-[0_0_20px_rgba(16,185,129,0.4),0_0_35px_rgba(59,130,246,0.25)] hover:border hover:border-green/20 border border-transparent`;
+    return `px-[18px] py-2 rounded-lg transition-all duration-200 ${darkMode ? "text-gray-400 hover:text-white" : "text-gray-700 hover:text-gray-900"} hover:bg-gradient-to-r hover:from-blue/10 hover:to-green/10 hover:shadow-[0_0_20px_rgba(16,185,129,0.4),0_0_35px_rgba(59,130,246,0.25)] hover:border hover:border-green/20 border border-transparent`;
   };
 
   return (
@@ -38,7 +38,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
             <img src={logo} alt="DeepCiphers" className="h-11 sm:h-13 w-auto object-contain -ml-2" />
           </a>
 
-          <div className="hidden lg:flex items-center gap-0.5 bg-white/[0.03] border border-white/[0.06] rounded-full p-1.5 text-[13px] font-medium">
+          <div className="hidden lg:flex items-center gap-0.5 bg-white/[0.03] border border-white/[0.06] rounded-lg p-1.5 text-[13px] font-medium">
             <a href="#home" onMouseEnter={() => setActive("Home")} className={navItemClass("Home")}>Home</a>
             <a href="#about" onMouseEnter={() => setActive("About")} className={navItemClass("About")}>About</a>
 
@@ -72,7 +72,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
           </div>
 
           <div className="hidden lg:flex items-center gap-4">
-            <button onClick={() => setDarkMode(!darkMode)} className="w-16 h-[36px] rounded-full bg-white/[0.05] border border-white/[0.08] relative flex items-center px-[2px]">
+            <button onClick={() => setDarkMode(!darkMode)} className="w-20 h-[40px] rounded-full bg-white/[0.05] border border-white/[0.08] relative flex items-center px-[2px]">
   <motion.div
     className="w-[28px] h-[28px] rounded-full bg-gradient-to-br from-blue to-green flex items-center justify-center shadow-[0_0_10px_rgba(16,185,129,0.5)]"
     animate={{ x: darkMode ? 28 : 1 }}
@@ -88,7 +88,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
           </div>
 
           <div className="flex lg:hidden items-center gap-3">
-           <button onClick={() => setDarkMode(!darkMode)} className="w-12 h-[28px] sm:w-20 sm:h-[50px] rounded-full bg-white/[0.05] border border-white/[0.08] relative flex items-center px-[2px]">
+           <button onClick={() => setDarkMode(!darkMode)} className="w-20 h-[32px] sm:w-20 sm:h-[50px] rounded-full bg-white/[0.05] border border-white/[0.08] relative flex items-center px-[2px]">
   <motion.div
     className="w-[20px] h-[20px] sm:w-[30px] sm:h-[30px] rounded-full bg-gradient-to-br from-blue to-green flex items-center justify-center shadow-[0_0_10px_rgba(16,185,129,0.5)]"
     animate={{ x: darkMode ? 19 : 1 }}
