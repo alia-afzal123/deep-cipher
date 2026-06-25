@@ -8,6 +8,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [active, setActive] = useState("Home");
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", onScroll);
@@ -34,10 +35,12 @@ export default function Navbar({ darkMode, setDarkMode }) {
 
         <div className="max-w-[1400px] mx-auto flex items-center justify-between relative z-10">
 
+          {/* Logo */}
           <a href="#home" className="flex items-center gap-2.5 shrink-0">
             <img src={logo} alt="DeepCiphers" className="h-11 sm:h-13 w-auto object-contain -ml-2" />
           </a>
 
+          {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-0.5 bg-white/[0.03] border border-white/[0.06] rounded-lg p-1.5 text-[13px] font-medium">
             <a href="#home" onMouseEnter={() => setActive("Home")} className={navItemClass("Home")}>Home</a>
             <a href="#about" onMouseEnter={() => setActive("About")} className={navItemClass("About")}>About</a>
@@ -71,41 +74,43 @@ export default function Navbar({ darkMode, setDarkMode }) {
             <a href="#contact" onMouseEnter={() => setActive("Contact")} className={navItemClass("Contact")}>Contact</a>
           </div>
 
+          {/* Desktop Right */}
           <div className="hidden lg:flex items-center gap-4">
-            <button onClick={() => setDarkMode(!darkMode)} className="w-20 h-[40px] rounded-full bg-white/[0.05] border border-white/[0.08] relative flex items-center px-[2px]">
-  <motion.div
-    className="w-[28px] h-[28px] rounded-full bg-gradient-to-br from-blue to-green flex items-center justify-center shadow-[0_0_10px_rgba(16,185,129,0.5)]"
-    animate={{ x: darkMode ? 28 : 1 }}
-    transition={{ type: "spring", stiffness: 400, damping: 28 }}
-  >
-    {darkMode ? <Moon size={15} className="text-navy" /> : <Sun size={15} className="text-navy" />}
-  </motion.div>
-</button>
+            <button onClick={() => setDarkMode(!darkMode)} className="w-14 h-[30px] rounded-full bg-white/[0.05] border border-white/[0.08] relative flex items-center px-[3px]">
+              <motion.div
+                className="w-[22px] h-[22px] rounded-full bg-gradient-to-br from-blue to-green flex items-center justify-center shadow-[0_0_10px_rgba(16,185,129,0.5)]"
+                animate={{ x: darkMode ? 1 : 26 }}
+                transition={{ type: "spring", stiffness: 400, damping: 28 }}
+              >
+                {darkMode ? <Moon size={12} className="text-navy" /> : <Sun size={12} className="text-navy" />}
+              </motion.div>
+            </button>
 
             <a href="#contact" className="flex items-center gap-1.5 px-6 py-2.5 rounded-full bg-gradient-to-r from-blue to-green text-[13px] font-semibold text-navy shadow-[0_6px_24px_rgba(16,185,129,0.3)] hover:scale-[1.03] transition-transform duration-200 whitespace-nowrap">
               Start a project <ArrowRight size={14} />
             </a>
           </div>
 
+          {/* Mobile Right */}
           <div className="flex lg:hidden items-center gap-3">
-           <button onClick={() => setDarkMode(!darkMode)} className="w-20 h-[32px] sm:w-20 sm:h-[50px] rounded-full bg-white/[0.05] border border-white/[0.08] relative flex items-center px-[2px]">
-  <motion.div
-    className="w-[20px] h-[20px] sm:w-[30px] sm:h-[30px] rounded-full bg-gradient-to-br from-blue to-green flex items-center justify-center shadow-[0_0_10px_rgba(16,185,129,0.5)]"
-    animate={{ x: darkMode ? 19 : 1 }}
-    transition={{ type: "spring", stiffness: 400, damping: 28 }}
-  >
-    {darkMode ? <Moon size={11} className="sm:hidden text-navy" /> : <Sun size={11} className="sm:hidden text-navy" />}
-    {darkMode ? <Moon size={18} className="hidden sm:block text-navy" /> : <Sun size={18} className="hidden sm:block text-navy" />}
-  </motion.div>
-</button>
-
+            <button onClick={() => setDarkMode(!darkMode)} className="w-12 h-[26px] rounded-full bg-white/[0.05] border border-white/[0.08] relative flex items-center px-[3px]">
+              <motion.div
+                className="w-[20px] h-[20px] rounded-full bg-gradient-to-br from-blue to-green flex items-center justify-center shadow-[0_0_10px_rgba(16,185,129,0.5)]"
+                animate={{ x: darkMode ? 1 : 20 }}
+                transition={{ type: "spring", stiffness: 400, damping: 28 }}
+              >
+                {darkMode ? <Moon size={11} className="text-navy" /> : <Sun size={11} className="text-navy" />}
+              </motion.div>
+            </button>
             <button className={darkMode ? "text-white p-2" : "text-gray-900 p-2"} onClick={() => setMenuOpen(!menuOpen)}>
               {menuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
+
         </div>
       </div>
 
+      {/* Mobile Menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -115,13 +120,13 @@ export default function Navbar({ darkMode, setDarkMode }) {
             className={`lg:hidden backdrop-blur-xl border-t overflow-hidden ${darkMode ? "bg-[#070B12]/98 border-white/[0.06]" : "bg-white/98 border-gray-200"}`}
           >
             <div className={`flex flex-col gap-1 px-6 py-6 text-sm ${darkMode ? "text-gray-300" : "text-gray-700"}`}>
-              <a href="#home" onClick={() => setMenuOpen(false)} className="py-3 border-b border-white/[0.06] hover:text-green transition-colors">Home</a>
-              <a href="#about" onClick={() => setMenuOpen(false)} className="py-3 border-b border-white/[0.06] hover:text-green transition-colors">About</a>
-              <a href="#services" onClick={() => setMenuOpen(false)} className="py-3 border-b border-white/[0.06] hover:text-green transition-colors">Services</a>
-              <a href="#team" onClick={() => setMenuOpen(false)} className="py-3 border-b border-white/[0.06] hover:text-green transition-colors">Team</a>
-              <a href="#roadmap" onClick={() => setMenuOpen(false)} className="py-3 border-b border-white/[0.06] hover:text-green transition-colors">Roadmap</a>
-              <a href="#contact" onClick={() => setMenuOpen(false)} className="py-3 hover:text-green transition-colors">Contact</a>
-              <a href="#contact" onClick={() => setMenuOpen(false)} className="mt-4 px-5 py-3.5 text-center rounded-full bg-gradient-to-r from-blue to-green text-navy font-semibold text-[14px]">
+              <a onClick={() => { setMenuOpen(false); setTimeout(() => document.getElementById("home")?.scrollIntoView({ behavior: "smooth" }), 300); }} className="cursor-pointer py-3 border-b border-white/[0.06] hover:text-green transition-colors">Home</a>
+              <a onClick={() => { setMenuOpen(false); setTimeout(() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" }), 300); }} className="cursor-pointer py-3 border-b border-white/[0.06] hover:text-green transition-colors">About</a>
+              <a onClick={() => { setMenuOpen(false); setTimeout(() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" }), 300); }} className="cursor-pointer py-3 border-b border-white/[0.06] hover:text-green transition-colors">Services</a>
+              <a onClick={() => { setMenuOpen(false); setTimeout(() => document.getElementById("team")?.scrollIntoView({ behavior: "smooth" }), 300); }} className="cursor-pointer py-3 border-b border-white/[0.06] hover:text-green transition-colors">Team</a>
+              <a onClick={() => { setMenuOpen(false); setTimeout(() => document.getElementById("roadmap")?.scrollIntoView({ behavior: "smooth" }), 300); }} className="cursor-pointer py-3 border-b border-white/[0.06] hover:text-green transition-colors">Roadmap</a>
+              <a onClick={() => { setMenuOpen(false); setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 300); }} className="cursor-pointer py-3 hover:text-green transition-colors">Contact</a>
+              <a onClick={() => { setMenuOpen(false); setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 300); }} className="cursor-pointer mt-4 px-5 py-3.5 text-center rounded-full bg-gradient-to-r from-blue to-green text-navy font-semibold text-[14px]">
                 Start a Project
               </a>
             </div>
